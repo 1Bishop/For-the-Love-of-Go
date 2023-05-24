@@ -32,3 +32,16 @@ func TestBuy(t *testing.T) {
 		t.Errorf("Copies = %d; want %d", got, want)
 	}
 }
+
+func TestBuyErrorsIfNoCopiesLeft(t *testing.T) {
+	t.Parallel()
+	book := bookstore.Book{
+		Title:  "For the Love of Go",
+		Author: "Alan A.A. Donovan",
+		Copies: 0,
+	}
+	_, err := bookstore.Buy(book)
+	if err == nil {
+		t.Error("want error buying from zero, got nil")
+	}
+}
